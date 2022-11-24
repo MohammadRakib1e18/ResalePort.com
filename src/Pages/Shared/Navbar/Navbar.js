@@ -1,14 +1,16 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import logo from '../../../Images/gym-logo-removebg-preview.png';
 
 const Navbar = () => {
 
     const menu = (
       <>
         <li>
-          <a>Home</a>
+          <Link to='/'>Home</Link>
         </li>
         <li>
-          <a>Categories</a>
+          <Link to='/categories'>Categories</Link>
         </li>
         <li>
           <a>Blogs</a>
@@ -19,7 +21,7 @@ const Navbar = () => {
       </>
     );
     return (
-      <div className="navbar bg-blue-900">
+      <div className="navbar bg-slate-800 text-slate-200">
         <div className="navbar-start">
           <div className="dropdown">
             <label tabIndex={0} className="btn btn-ghost lg:hidden">
@@ -45,15 +47,18 @@ const Navbar = () => {
               {menu}
             </ul>
           </div>
-          <a className="btn btn-ghost normal-case text-xl">ResalePort.com</a>
+          <Link to="/" className="normal-case text-xl font-semibold ml-5">
+            <img src={logo} className="inline w-8 mr-2" alt="" />
+             ResalePort.com{" "}
+          </Link>
         </div>
         <div className="navbar-center hidden lg:flex">
-          <ul className="menu menu-horizontal p-0">
-            {menu}
-          </ul>
+          <ul className="menu menu-horizontal p-0">{menu}</ul>
         </div>
         <div className="navbar-end">
-          <a className="btn">Sign In</a>
+          <Link to="login" className="btn btn-primary btn-outline">
+            Sign In
+          </Link>
         </div>
       </div>
     );
