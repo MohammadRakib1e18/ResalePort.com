@@ -36,3 +36,19 @@
     transform: rotate(360deg);
   }
 }
+
+.marque-effect {
+  animation: marquee 15s linear infinite;
+}
+@keyframes marquee {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+.main-container{
+  overflow-x: hidden;
+}
