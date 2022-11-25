@@ -1,26 +1,33 @@
 import React from "react";
 import { Modal } from "flowbite-react";
+import CustomButton from '../../Components/CustomButton';
 
-const ReadMore = ({ show, setShow }) => {
+const ReadMore = ({ show, setShow, blogDetails }) => {
   return (
-    <Modal show={show} onClose={() => setShow(false)}>
-      <Modal.Header>Terms of Service</Modal.Header>
-      <Modal.Body>
-        <div className="space-y-6">
-          <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-            With less than a month to go before the European Union enacts new
-            consumer privacy laws for its citizens, companies around the world
-            are updating their terms of service agreements to comply.
-          </p>
-          <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-            The European Union’s General Data Protection Regulation (G.D.P.R.)
-            goes into effect on May 25 and is meant to ensure a common set of
-            data rights in the European Union. It requires organizations to
-            notify users as soon as possible of high-risk data breaches that
-            could personally affect them.
-          </p>
+    <Modal
+      show={show}
+      onClose={() => setShow(false)}
+      className="md:pt-[480px]"
+    >
+      <Modal.Header className="bg-slate-600 text-slate-200">
+        <span className="text-blue-200">BlogHub</span>
+      </Modal.Header>
+      <Modal.Body className="bg-slate-600 text-slate-200">
+        <div className="space-y-6 leading-relaxed">
+          {blogDetails.map((detail) => (
+            <>{detail}</>
+          ))}
         </div>
       </Modal.Body>
+      <Modal.Footer
+        onClick={() => {
+          setShow(false);
+          console.log("hello button");
+        }}
+        className="bg-slate-600 text-slate-200"
+      >
+        <CustomButton>Close</CustomButton>
+      </Modal.Footer>
     </Modal>
   );
 };

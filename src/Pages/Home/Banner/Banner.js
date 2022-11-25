@@ -1,4 +1,5 @@
 import React from "react";
+import CustomButton from '../../../Components/CustomButton';
 import img1 from "../../../Images/img1.jpg";
 import img2 from "../../../Images/img2.jpg";
 import img3 from "../../../Images/img3.jpg";
@@ -24,7 +25,7 @@ import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 import "swiper/css/autoplay";
 import "swiper/css/effect-fade";
-import Button from "../../../Components/Button";
+import Button from "../../../Components/CustomButton";
 
 const Banner = () => {
   const images = [img1, img2, img3, img4, img5];
@@ -79,7 +80,7 @@ const Banner = () => {
                 </p>
               </div>
               <div className="top-12 relative">
-                <Button>Get Started</Button>
+                <CustomButton>Get Started</CustomButton>
               </div>
             </div>
           </div>
