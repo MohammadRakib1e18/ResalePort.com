@@ -55,13 +55,13 @@ const Testimonals = () => {
         className="mt-12 bg-slate-800"
       >
         {TestimonialInfo.map((info, index) => (
-          <SwiperSlide className="p-4  bg-sky-600 rounded-2xl ">
-              <div className="hero-content h-[450px] md:h-[400px] bg-slate-300 md:px-10 py-2 rounded-2xl flex-col text-center ">
-                <p className="md:text-xl text-gray-900">{info.feedback}</p>
-                <p className="text-xl text-red-500 font-semibold">
-                  --{info.customer}
-                </p>
-              </div>
+          <SwiperSlide className="p-4  bg-gradient-to-r from-cyan-500 to-blue-500 rounded-2xl ">
+            <div className="hero-content h-[450px] md:h-[400px] bg-slate-300 md:px-10 py-2 rounded-2xl flex-col text-center ">
+              <p className="md:text-xl text-gray-900">{info.feedback}</p>
+              <p className="text-xl text-red-500 font-semibold">
+                --{info.customer}
+              </p>
+            </div>
           </SwiperSlide>
         ))}
       </Swiper>
