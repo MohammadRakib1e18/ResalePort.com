@@ -1,4 +1,5 @@
 import MainLayout from "../Layout/MainLayout";
+import NotFound from "../Others/NotFound";
 import BlogsContainer from "../Pages/Blogs/BlogsContainer";
 import Categories from "../Pages/Categories/Categories";
 import Home from "../Pages/Home/Home/Home";
@@ -24,4 +25,8 @@ export const routes = createBrowserRouter([
       },
     ],
   },
+  {
+    path: '*',
+    element: <NotFound></NotFound>
+  }
 ]);
