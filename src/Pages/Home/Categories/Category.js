@@ -2,20 +2,20 @@
 import React from 'react';
 import CustomButton from '../../../Components/CustomButton';
 
-const Category = () => {
+const Category = ({category}) => {
     return (
       <div>
         <div className="card text-center  bg-slate-700 shadow-xl image-full">
-          <figure className="w-full h-42">
+          <figure className="h-64">
             <img
-              className="w-full"
-              src="https://placeimg.com/400/225/arch"
-              alt="Shoes"
+              className="h-full w-full object-cover"
+              src={category.img}
+              alt={category.name}
             />
           </figure>
           <div className="card-body flex justify-center items-center">
-            <div className="dropdown dropdown-hover">
-              <h2 className="text-4xl text-blue-400 my-5">Shoes!</h2>
+            <div className="dropdown dropdown-bottom">
+              <h2 className="text-3xl text-blue-300 my-5">{category.name}</h2>
               <CustomButton tabIndex={0}>Explore More</CustomButton>
               <ul
                 tabIndex={0}
