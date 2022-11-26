@@ -5,6 +5,7 @@ import Categories from "../Pages/Categories/Categories";
 import Home from "../Pages/Home/Home/Home";
 import Login from "../Pages/Login/Login";
 import Registration from "../Pages/Login/Registration";
+import Products from "../Pages/Products/Products";
 
 const { createBrowserRouter } = require("react-router-dom");
 
@@ -22,6 +23,11 @@ export const routes = createBrowserRouter([
         element: <Categories></Categories>,
       },
       {
+        path: "/category/:id",
+        element: <Products></Products>,
+        loader: ({ params }) => fetch(`http://localhost:5000/category/${params.id}`),
+      },
+      {
         path: "/blogs",
         element: <BlogsContainer></BlogsContainer>,
       },
@@ -31,7 +37,7 @@ export const routes = createBrowserRouter([
       },
       {
         path: "/registration",
-        element: <Registration></Registration>
+        element: <Registration></Registration>,
       },
     ],
   },

@@ -25,7 +25,6 @@ import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 import "swiper/css/autoplay";
 import "swiper/css/effect-fade";
-import Button from "../../../Components/CustomButton";
 
 const Banner = () => {
   const images = [img1, img2, img3, img4, img5];
@@ -42,8 +41,6 @@ const Banner = () => {
       loop
       pagination={{ clickable: true }}
       scrollbar={{ draggable: true }}
-      onSwiper={(swiper) => console.log(swiper)}
-      onSlideChange={() => console.log("slide change")}
       className=""
     >
       {images.map((img,index) => (
