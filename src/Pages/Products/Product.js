@@ -1,5 +1,6 @@
 import React from "react";
 import { Rating } from "flowbite-react";
+import { FaCheckCircle } from "react-icons/fa";
 
 const Product = ({ product, setShow, setProductInfo }) => {
   const {
@@ -59,12 +60,15 @@ const Product = ({ product, setShow, setProductInfo }) => {
               </Rating>
             </p>
           </div>
-          <h2 className="-mt-2">
-            For Sale By:{" "}
-            <span className="text-xl font-semibold text-blue-200">
-              {seller}
-            </span>
-          </h2>
+          <div className=" flex">
+            <h2 className="-mt-2 max-w-fit">
+              For Sale By:{" "}
+              <span className="text-xl font-semibold text-blue-200">
+                {seller}
+              </span>
+            </h2>
+            {isVerified && <FaCheckCircle title="verified" className="text-red-400 border border-dotted rounded-full relative ml-1 -top-2" />}
+          </div>
           <div className="divider"></div>
           <div>
             <h2 className="text-yellow-400 md:text-4xl tracking-wide font-bold">
@@ -92,11 +96,10 @@ const Product = ({ product, setShow, setProductInfo }) => {
           <label
             htmlFor="purchase-modal"
             className="btn bg-gradient-to-r from-cyan-500 to-blue-500 rounded-3xl border-none text-slate-100"
-            onClick={()=>{
-              setProductInfo(product)
-              setShow(true)
+            onClick={() => {
+              setProductInfo(product);
+              setShow(true);
             }}
-            
           >
             Purchase Now
           </label>
