@@ -70,6 +70,7 @@ const Login = () => {
             id="email"
             placeholder="abc@gmail.com"
             className="w-full px-4 py-3    border-gray-700   bg-gray-900   text-gray-100 focus:border-violet-400"
+            required
           />
         </div>
         <div className="space-y-1 text-sm relative">
@@ -82,6 +83,7 @@ const Login = () => {
             id="password"
             placeholder="**********"
             className="w-full px-4 py-3    border-gray-700   bg-gray-900   text-gray-100 focus:border-violet-400"
+            required
           />
           <span
             className="absolute right-4 top-1/2"

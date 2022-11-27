@@ -25,6 +25,7 @@ import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 import "swiper/css/autoplay";
 import "swiper/css/effect-fade";
+import { Link } from "react-router-dom";
 
 const Banner = () => {
   const images = [img1, img2, img3, img4, img5];
@@ -43,7 +44,7 @@ const Banner = () => {
       scrollbar={{ draggable: true }}
       className=""
     >
-      {images.map((img,index) => (
+      {images.map((img, index) => (
         <SwiperSlide key={index}>
           <div
             className="hero min-h-screen"
@@ -57,7 +58,7 @@ const Banner = () => {
             <div className="hero-overlay bg-gray-900 bg-opacity-70"></div>
             <div className="hero-content flex-col text-center text-neutral-content">
               <div>
-                <img src={gymLogo} className='w-16' alt="" />
+                <img src={gymLogo} className="w-16" alt="" />
               </div>
               <div className="mb-5">
                 <h3 className="mb-5 text-xl md:text-2xl font-semibold text-red-300">
@@ -77,7 +78,9 @@ const Banner = () => {
                 </p>
               </div>
               <div className="top-12 relative">
-                <CustomButton>Get Started</CustomButton>
+                <Link to="/categories">
+                  <CustomButton>Get Started</CustomButton>
+                </Link>
               </div>
             </div>
           </div>

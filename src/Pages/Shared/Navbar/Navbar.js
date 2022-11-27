@@ -1,9 +1,27 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
+import toast from 'react-hot-toast';
 import { Link } from 'react-router-dom';
+import CustomLoading from '../../../Components/CustomLoading';
+import { AuthContext } from '../../../contexts/AuthProvider';
 import logo from '../../../Images/gym-logo-removebg-preview.png';
 
 const Navbar = () => {
   const [showOffer, setShowOffer] = useState(true);
+  const {user, loading, logOut} = useContext(AuthContext);
+
+  if (loading) {
+    return <CustomLoading></CustomLoading>
+  }
+
+  const handleLogOut = () => {
+    logOut()
+      .then((result) => {
+        toast.success("You've been logged out!");
+      })
+      .catch((error) => {
+        toast.error(`${error.message}`);
+      });
+  };
 
     const menu = (
       <>
@@ -79,9 +97,29 @@ const Navbar = () => {
             <ul className="menu menu-horizontal p-0">{menu}</ul>
           </div>
           <div className="navbar-end">
-            <Link to="login" className="btn btn-primary btn-outline">
-              Sign In
-            </Link>
+            {user?.uid ? (
+              <>
+                <button
+                  onClick={handleLogOut}
+                  className="btn bg-slate-700 mr-3 text-md rounded-none font-semibold"
+                >
+                  Sign out
+                </button>
+                <span title={user.displayName}>
+                  <img
+                    src={user.photoURL}
+                    className="w-12 rounded-full gap-2"
+                    alt=""
+                  />
+                </span>
+              </>
+            ) : (
+              <Link to="/login">
+                <button className="btn btn-outline btn-info  text-lg rounded-none font-semibold">
+                  Sign in
+                </button>
+              </Link>
+            )}
           </div>
         </div>
       </>
