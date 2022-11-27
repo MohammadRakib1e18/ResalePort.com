@@ -1,12 +1,12 @@
 import React from "react";
 import { Rating } from "flowbite-react";
-import { FaEye } from "react-icons/fa";
 
-const Product = ({ product }) => {
+const Product = ({ product, setShow, setProductInfo }) => {
   const {
     category_name,
     sub_category,
     rating,
+    title,
     isVerified,
     location,
     resale_price,
@@ -14,25 +14,24 @@ const Product = ({ product }) => {
     seller,
     used_duration,
     posted_time,
-    title,
     image_url,
   } = product;
   const fullStar = Math.ceil(parseInt(rating));
-  console.log(typeof fullStar);
-  let starArray = [1, 2, 3, 4, 5];
+  const starArray = [1, 2, 3, 4, 5];
+
   return (
     <div>
-      <div className="card flex-col md:flex-row bg-slate-700 shadow-xl text-slate-200">
-        <figure className="md:w-1/2 rounded-none ">
+      <div className="card flex-col md:flex-row bg-slate-700 shadow-xl text-slate-200 border rounded-none p-2">
+        <figure className="md:w-1/2 rounded-none max-h-[600px]">
           <img
             className="h-full w-full object-cover  border-slate-600 border-2"
             src={image_url}
             alt={sub_category}
           />
         </figure>
-        <div className="card-body py-10">
+        <div className="card-body py-4">
           <h2 className="card-title -mb-5 text-3xl text-blue-400">
-            {sub_category}
+            {title}
             <div className="badge badge-primary relative -top-2 text-xs">
               NEW
             </div>
@@ -77,21 +76,38 @@ const Product = ({ product }) => {
           </div>
           <div className="my-5">
             <p className="text-semibold text-slate-400">Description:</p>
-            <p>
-              Bought 1 year ago. Rarely used as its my personal machine.
-              <br />
-              Fully Fresh & Spot Less like new.
-              <br /> Market price is 55 to 65k at present
-            </p>
+            <ul>
+              <li>Bought {used_duration} days ago.</li>
+              <li>Rarely used as its my personal machine. </li>
+              <li>Fully Fresh & Spot Less like new.</li>
+              <li>
+                Market price is{" "}
+                <span className="text-yellow-400 font-semibold">
+                  tk {original_price}
+                </span>{" "}
+                at present
+              </li>
+            </ul>
           </div>
-          <div className="space-x-5 mt-8">
-            <small className="bg-slate-600 py-2 px-4 rounded-2xl">
-              Post: {posted_time}
+          <label
+            htmlFor="purchase-modal"
+            className="btn bg-gradient-to-r from-cyan-500 to-blue-500 rounded-3xl border-none text-slate-100"
+            onClick={()=>{
+              setProductInfo(product)
+              setShow(true)
+            }}
+            
+          >
+            Purchase Now
+          </label>
+          <div className="gap-y-5 mt-8 grid grid-cols-1 sm:grid-cols-3">
+            <small className="bg-slate-600  max-w-fit py-2 px-4 rounded-2xl">
+              Post{posted_time}
             </small>
-            <small className="bg-slate-600 py-2 px-4 rounded-2xl">
+            <small className="bg-slate-600 max-w-fit  py-2 px-4 rounded-2xl">
               Location: {location}
             </small>
-            <small className="bg-slate-600 py-2 px-4 rounded-2xl">
+            <small className="bg-slate-600 max-w-fit  py-2 px-4 rounded-2xl">
               Used for {used_duration} days
             </small>
           </div>

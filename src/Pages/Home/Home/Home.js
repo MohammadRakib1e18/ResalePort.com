@@ -1,3 +1,4 @@
+import { Dropdown } from 'flowbite-react';
 import React from 'react';
 import Banner from '../Banner/Banner';
 import Categories from '../Categories/Categories';
@@ -5,11 +6,11 @@ import Testimonials from '../Testimonials/Testimonials';
 
 const Home = () => {
     return (
-        <div>
-            <Banner></Banner>
-            <Categories></Categories>
-            <Testimonials></Testimonials>
-        </div>
+      <div>
+        <Banner></Banner>
+        <Categories></Categories>
+        <Testimonials></Testimonials>
+      </div>
     );
 };
 

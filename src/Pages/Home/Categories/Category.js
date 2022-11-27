@@ -14,17 +14,22 @@ const Category = ({ category }) => {
           />
         </figure>
         <div className="card-body flex justify-center items-center">
-          <div className="dropdown dropdown-bottom">
-            <h2 className="text-3xl text-blue-300 my-5">
-              {category.category_name}
-            </h2>
+          <h2 className="text-3xl text-blue-300 my-5">
+            {category.category_name}
+          </h2>
+          <div className="dropdown dropdown-right">
             <CustomButton tabIndex={0}>Explore More</CustomButton>
+            
             <ul
               tabIndex={0}
-              className="space-y-2 dropdown-content text-left menu p-2 mt-2 shadow bg-slate-700 rounded-[10px] w-44 text-blue-200 text-md"
+              className="dropdown-content  text-left menu shadow "
             >
               {category.categoryList.map((item, index) => (
-                <Link key={index} to={`/category/${item}`}>
+                <Link
+                  className="btn btn-outline px-2 bg-slate-700 w-32 text-blue-200 text-md"
+                  key={index}
+                  to={`/category/${item}`}
+                >
                   <li>{item}</li>
                 </Link>
               ))}

@@ -22,7 +22,6 @@ const ReadMore = ({ show, setShow, blogDetails }) => {
       <Modal.Footer
         onClick={() => {
           setShow(false);
-          console.log("hello button");
         }}
         className="bg-slate-600 text-slate-200"
       >

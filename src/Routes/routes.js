@@ -1,7 +1,7 @@
 import MainLayout from "../Layout/MainLayout";
 import NotFound from "../Others/NotFound";
 import BlogsContainer from "../Pages/Blogs/BlogsContainer";
-import Categories from "../Pages/Categories/Categories";
+import CategoryPage from "../Pages/CategoryPage/CategoryPage";
 import Home from "../Pages/Home/Home/Home";
 import Login from "../Pages/Login/Login";
 import Registration from "../Pages/Login/Registration";
@@ -20,7 +20,7 @@ export const routes = createBrowserRouter([
       },
       {
         path: "/categories",
-        element: <Categories></Categories>,
+        element: <CategoryPage></CategoryPage>,
       },
       {
         path: "/category/:id",
