@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import {FaGoogle } from "react-icons/fa";
+import { FaGoogle } from "react-icons/fa";
 import { FiEyeOff, FiEye } from "react-icons/fi";
 import toast from "react-hot-toast";
 import { AuthContext } from "../../contexts/AuthProvider";
@@ -8,7 +8,7 @@ import { Spinner } from "flowbite-react";
 
 const Login = () => {
   const [show, setShow] = useState(false);
-  const { loading, signIn, googleSignIn } = useContext(AuthContext);
+  const { user, loading, signIn, googleSignIn } = useContext(AuthContext);
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -45,9 +45,26 @@ const Login = () => {
   const handleGoogleSignIn = () => {
     googleSignIn()
       .then((result) => {
-        console.log(result.user);
-        toast.success("SignIn with Google Successful!");
-        navigate(from, { replace: true });
+        const {displayName, email, photoURL} = result.user;
+        const newUser = {
+          name: displayName,
+          email: email,
+          status: "buyer",
+          userPhoto: photoURL,
+        };
+        fetch("http://localhost:5000/users", {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(newUser),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            console.log(data);
+          });
+        toast.success("Login Successful!");
+        navigate("/");
       })
       .catch((error) => {
         toast.error(`${error.message}`);

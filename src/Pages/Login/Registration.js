@@ -99,6 +99,24 @@ const Registration = () => {
   const handleGoogleSignIn = () => {
     googleSignIn()
       .then((result) => {
+        const { displayName, email, photoURL } = result.user;
+        const newUser = {
+          name: displayName,
+          email: email,
+          status: "buyer",
+          userPhoto: photoURL,
+        };
+        fetch("http://localhost:5000/users", {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(newUser),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            console.log(data);
+          });
         toast.success("Registration with Google Completed Successfully!");
         navigate("/");
       })

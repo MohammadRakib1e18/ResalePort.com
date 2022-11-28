@@ -13,7 +13,6 @@ const Navbar = () => {
   if (loading) {
     return <CustomLoading></CustomLoading>
   }
-  console.log(user);
 
   const handleLogOut = () => {
     logOut()
@@ -28,14 +27,19 @@ const Navbar = () => {
     const menu = (
       <>
         <li>
-          <Link to='/'>Home</Link>
+          <Link to="/">Home</Link>
         </li>
         <li>
-          <Link to='/categories'>Categories</Link>
+          <Link to="/categories">Categories</Link>
         </li>
         <li>
-          <Link to='/blogs'>Blogs</Link>
+          <Link to="/blogs">Blogs</Link>
         </li>
+        {user?.uid && (
+          <li>
+            <Link to="/dashboard">Dashboard</Link>
+          </li>
+        )}
       </>
     );
     return (
@@ -91,8 +95,12 @@ const Navbar = () => {
               </ul>
             </div>
             <Link to="/" className="normal-case text-xl font-semibold ml-5">
-              <img src={logo} className="inline w-8 mr-2" alt="" />
-              ResalePort.com{" "}
+              <img
+                src={logo}
+                className=" w-8 mr-2 hidden md:inline "
+                alt=""
+              />
+              <span>ResalePort.com</span>
             </Link>
           </div>
           <div className="navbar-center hidden lg:flex">
@@ -109,8 +117,11 @@ const Navbar = () => {
                 </button>
                 <span title={user.displayName}>
                   <img
-                    src={(user.photoURL==='' || user.photoURL===null)? profileLogo : user.photoURL}
-                    // src="https://lh3.googleusercontent.com/a/ALm5wu1z60MSkzasxYlxY8a7qv4qU1QzmKEpWSWwqdqt5Q=s96-c"
+                    src={
+                      user.photoURL === "" || user.photoURL === null
+                        ? profileLogo
+                        : user.photoURL
+                    }
                     className="w-10 h-10 rounded-full gap-2"
                     alt=""
                   />
@@ -123,6 +134,26 @@ const Navbar = () => {
                 </button>
               </Link>
             )}
+            <label
+              htmlFor="my-drawer-2"
+              tabIndex={2}
+              className="btn btn-ghost lg:hidden"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-5 w-5"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M4 6h16M4 12h8m-8 6h16"
+                />
+              </svg>
+            </label>
           </div>
         </div>
       </>
