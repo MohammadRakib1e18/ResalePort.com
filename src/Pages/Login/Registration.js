@@ -19,6 +19,7 @@ const Registration = () => {
   const [show2, setShow2] = useState(false);
   const { loading, auth, createUser, googleSignIn } = useContext(AuthContext);
   const navigate = useNavigate();
+  const imageHostKey = process.env.REACT_APP_imgbb_key;
 
   if (loading) {
     return <CustomLoading></CustomLoading>;
@@ -27,54 +28,73 @@ const Registration = () => {
   // setPhotoName(data.img[0].name);
 
   const handleRegisterForm = (data) => {
-    console.log(data);
+    // console.log(data);
     const { name, email, password, confirm, status } = data;
+
+    const photo = data.photo[0];
+
 
     if (password !== confirm) {
       toast.error("password didn't match!");
       return;
     }
 
-    const user = {
-      name,
-      email,
-      status,
-    };
+    
 
-    createUser(email, password)
-      .then((result) => {
-        fetch("http://localhost:5000/users", {
-          method: "POST",
-          headers: {
-            "content-type": "application/json",
-          },
-          body: JSON.stringify(user),
-        })
-          .then((res) => res.json())
-          .then((data) => {
-            console.log(data);
+    const formData = new FormData();
+    formData.append("image", photo);
+    const url = `https://api.imgbb.com/1/upload?key=${imageHostKey}`;
+    fetch(url,{
+      method: 'POST',
+      body: formData
+    })
+    .then(res => res.json())
+    .then(data => {
+      if(data.success){
+        const user = {
+          name,
+          email,
+          status,
+          userPhoto:data.data.url
+        };
+        createUser(email, password)
+          .then((result) => {
+            fetch("http://localhost:5000/users", {
+              method: "POST",
+              headers: {
+                "content-type": "application/json",
+              },
+              body: JSON.stringify(user),
+            })
+              .then((res) => res.json())
+              .then((data) => {
+                console.log(data);
+              });
+            updateProfile(auth.currentUser, {
+              displayName: `${name}`,
+              photoURL: `${user.userPhoto}`,
+            })
+              .then(() => {})
+              .catch((error) => {
+                toast.error(`${error.message}`);
+              });
+            Swal.fire({
+              icon: "success",
+              title: `Hello, ${name}`,
+              text: "Registration Successful!",
+              showConfirmButton: true,
+              timer: 1500,
+            });
+            navigate("/");
+          })
+
+          .catch((error) => {
+            toast.error(`${error.message}`);
           });
-        // updateProfile(auth.currentUser, {
-        //   displayName: `${name}`,
-        //   //   photoURL: `${userPhotoURL}`,
-        // })
-        //   .then(() => {})
-        //   .catch((error) => {
-        //     toast.error(`${error.message}`);
-        //   });
-        // Swal.fire({
-        //   icon: "success",
-        //   title: `Hello, ${name}`,
-        //   text: "Registration Successful!",
-        //   showConfirmButton: true,
-        //   timer: 1500,
-        // });
-        // navigate("/");
-      })
+      }
+    })
 
-      .catch((error) => {
-        toast.error(`${error.message}`);
-      });
+    
   };
   const handleGoogleSignIn = () => {
     googleSignIn()
