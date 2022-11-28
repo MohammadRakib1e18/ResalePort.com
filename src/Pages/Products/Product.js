@@ -67,7 +67,12 @@ const Product = ({ product, setShow, setProductInfo }) => {
                 {seller}
               </span>
             </h2>
-            {isVerified && <FaCheckCircle title="verified" className="text-red-400 border border-dotted rounded-full relative ml-1 -top-2" />}
+            {isVerified && (
+              <FaCheckCircle
+                title="verified"
+                className="text-blue-300  relative ml-1 -top-2"
+              />
+            )}
           </div>
           <div className="divider"></div>
           <div>

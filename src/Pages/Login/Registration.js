@@ -6,55 +6,72 @@ import { AuthContext } from "../../contexts/AuthProvider";
 import Swal from "sweetalert2";
 import { updateProfile } from "firebase/auth";
 import toast from "react-hot-toast";
-import { Spinner } from "flowbite-react";
+import CustomLoading from "../../Components/CustomLoading";
+import { useForm } from "react-hook-form";
 
 const Registration = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
   const [show, setShow] = useState(false);
   const [show2, setShow2] = useState(false);
-  const { loading, auth, createUser, googleSignIn } =
-    useContext(AuthContext);
+  const { loading, auth, createUser, googleSignIn } = useContext(AuthContext);
   const navigate = useNavigate();
 
   if (loading) {
-    return (
-      <div className="text-center mt-12">
-        <Spinner aria-label="Extra large  Center-aligned spinner example" />
-      </div>
-    );
+    return <CustomLoading></CustomLoading>;
   }
 
-  const handleRegisterForm = (event) => {
-    event.preventDefault();
-    const form = event.target;
-    const name = form.username.value;
-    const email = form.email.value;
-    const password = form.password.value;
-    const confirm = form.confirm.value;
+  // setPhotoName(data.img[0].name);
+
+  const handleRegisterForm = (data) => {
+    console.log(data);
+    const { name, email, password, confirm, status } = data;
 
     if (password !== confirm) {
       toast.error("password didn't match!");
       return;
     }
 
+    const user = {
+      name,
+      email,
+      status,
+    };
+
     createUser(email, password)
       .then((result) => {
-        updateProfile(auth.currentUser, {
-          displayName: `${name}`,
-        //   photoURL: `${userPhotoURL}`,
+        fetch("http://localhost:5000/users", {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(user),
         })
-          .then(() => {})
-          .catch((error) => {
-            toast.error(`${error.message}`);
+          .then((res) => res.json())
+          .then((data) => {
+            console.log(data);
           });
-        Swal.fire({
-          icon: "success",
-          title: `Hello, ${name}`,
-          text: "Registration Successful!",
-          showConfirmButton: true,
-          timer: 1500,
-        });
-        navigate("/");
+        // updateProfile(auth.currentUser, {
+        //   displayName: `${name}`,
+        //   //   photoURL: `${userPhotoURL}`,
+        // })
+        //   .then(() => {})
+        //   .catch((error) => {
+        //     toast.error(`${error.message}`);
+        //   });
+        // Swal.fire({
+        //   icon: "success",
+        //   title: `Hello, ${name}`,
+        //   text: "Registration Successful!",
+        //   showConfirmButton: true,
+        //   timer: 1500,
+        // });
+        // navigate("/");
       })
+
       .catch((error) => {
         toast.error(`${error.message}`);
       });
@@ -74,48 +91,47 @@ const Registration = () => {
     <div className="mt-8 w-5/6 mx-auto max-w-md p-8 space-y-3   bg-slate-800   text-gray-200">
       <h1 className="text-2xl font-bold text-center">Sign up</h1>
       <form
-        onSubmit={handleRegisterForm}
+        onSubmit={handleSubmit(handleRegisterForm)}
         className="space-y-6 ng-untouched ng-pristine ng-valid"
       >
         <div className="space-y-1 text-sm">
-          <label htmlFor="username" className="block   text-gray-400">
-            Username
-          </label>
+          <label className="block   text-gray-400">Username</label>
           <input
             type="text"
-            name="username"
-            id="username"
+            {...register("name", {
+              required: "user name is Required",
+            })}
             placeholder="Username"
             className="w-full px-4 py-3    border-gray-700   bg-gray-900   text-gray-100 focus:border-violet-400"
-            required
           />
+          {errors.name && <p className="text-red-500">{errors.name.message}</p>}
         </div>
         <div className="space-y-1 text-sm">
-          <label htmlFor="email" className="block   text-gray-400">
-            Email
-          </label>
+          <label className="block   text-gray-400">Email</label>
           <input
             type="email"
-            name="email"
-            id="email"
+            {...register("email", {
+              required: "email is Required",
+            })}
             placeholder="Email"
             className="w-full px-4 py-3    border-gray-700   bg-gray-900   text-gray-100 focus:border-violet-400"
-            required
           />
+          {errors.email && (
+            <p className="text-red-500">{errors.email.message}</p>
+          )}
         </div>
 
         <div className="space-y-1 text-sm relative">
-          <label htmlFor="password" className="block   text-gray-400">
-            Password
-          </label>
+          <label className="block   text-gray-400">Password</label>
           <input
             type={`${show ? "text" : "password"}`}
-            name="password"
-            id="password"
+            {...register("password", {
+              required: "password is Required",
+            })}
             placeholder="Password"
             className="w-full px-4 py-3    border-gray-700   bg-gray-900   text-gray-100 focus:border-violet-400"
-            required
           />
+
           <span
             className="absolute right-4 top-1/2"
             onClick={() => {
@@ -128,18 +144,19 @@ const Registration = () => {
               <FiEyeOff className="faFac1" />
             )}
           </span>
+          {errors.password && (
+            <p className="text-red-500">{errors.password.message}</p>
+          )}
         </div>
         <div className="space-y-1 text-sm relative">
-          <label htmlFor="confirm" className="block   text-gray-400">
-            Confirm Password
-          </label>
+          <label className="block   text-gray-400">Confirm Password</label>
           <input
             type={`${show2 ? "text" : "password"}`}
-            name="confirm"
-            id="confirm"
+            {...register("confirm", {
+              required: "confirm password is Required",
+            })}
             placeholder="confirm password"
             className="w-full px-4 py-3    border-gray-700   bg-gray-900   text-gray-100 focus:border-violet-400"
-            required
           />
           <span
             className="absolute right-4 top-1/2"
@@ -153,6 +170,58 @@ const Registration = () => {
               <FiEyeOff className="faFac1" />
             )}
           </span>
+          {errors.confirm && (
+            <p className="text-red-500">{errors.confirm.message}</p>
+          )}
+        </div>
+        <div className="form-control space-y-1 w-full">
+          <label className="block text-sm  text-gray-400">
+            Upload your photo
+          </label>
+          <input
+            type="file"
+            {...register("photo", {
+              required: "Photo is Required",
+            })}
+            accept="image/*"
+            className="input input-bordered w-full rounded-none   border-gray-700   bg-gray-900   text-gray-100 focus:border-violet-400"
+          />
+          {errors.photo && (
+            <p className="text-red-500">{errors.photo.message}</p>
+          )}
+        </div>
+        <div>
+          <fieldset>
+            <legend>Account Type</legend>
+            <div className="divider my-1"></div>
+            <p>
+              <label for="buyer">
+                <input
+                  type="radio"
+                  defaultChecked
+                  id="buyer"
+                  {...register("status", {
+                    required: "userType is Required",
+                  })}
+                  value="buyer"
+                />
+                <span className="ml-3">Buyer</span>
+              </label>
+            </p>
+            <p className="mt-3">
+              <label for="seller">
+                <input
+                  type="radio"
+                  id="seller"
+                  {...register("status", {
+                    required: "userType is Required",
+                  })}
+                  value="seller"
+                />
+                <span className="ml-3">Seller</span>
+              </label>
+            </p>
+          </fieldset>
         </div>
         <button className="block w-full font-semibold p-3 text-center  text-slate-200   bg-blue-500">
           Sign up

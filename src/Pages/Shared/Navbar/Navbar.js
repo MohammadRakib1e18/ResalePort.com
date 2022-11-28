@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import CustomLoading from '../../../Components/CustomLoading';
 import { AuthContext } from '../../../contexts/AuthProvider';
 import logo from '../../../Images/gym-logo-removebg-preview.png';
+import profileLogo from '../../../Images/profile.jpg';
 
 const Navbar = () => {
   const [showOffer, setShowOffer] = useState(true);
@@ -12,6 +13,7 @@ const Navbar = () => {
   if (loading) {
     return <CustomLoading></CustomLoading>
   }
+  console.log(user);
 
   const handleLogOut = () => {
     logOut()
@@ -107,8 +109,9 @@ const Navbar = () => {
                 </button>
                 <span title={user.displayName}>
                   <img
-                    src={user.photoURL}
-                    className="w-12 rounded-full gap-2"
+                    src={(user.photoURL==='' || user.photoURL===null)? profileLogo : user.photoURL}
+                    // src="https://lh3.googleusercontent.com/a/ALm5wu1z60MSkzasxYlxY8a7qv4qU1QzmKEpWSWwqdqt5Q=s96-c"
+                    className="w-10 h-10 rounded-full gap-2"
                     alt=""
                   />
                 </span>
