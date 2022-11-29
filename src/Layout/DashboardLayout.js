@@ -54,13 +54,13 @@ const DashboardLayout = () => {
     menu = (
       <>
         <li className="bg-slate-700 rounded-md ">
-          <Link to="/">All sellers</Link>
+          <Link to="/dashboard/sellers">All sellers</Link>
         </li>
         <li className="bg-slate-700 rounded-md ">
-          <Link to="/">All buyers</Link>
+          <Link to="/dashboard/buyers">All buyers</Link>
         </li>
         <li className="bg-slate-700 rounded-md ">
-          <Link to="/">Reported Items</Link>
+          <Link to="/dashboard/reportedItems">Reported Items</Link>
         </li>
       </>
     );

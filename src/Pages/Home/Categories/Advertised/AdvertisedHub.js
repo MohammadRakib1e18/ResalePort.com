@@ -22,17 +22,21 @@ const AdvertisedHub = () => {
     return <CustomLoading></CustomLoading>;
   }
   return (
-    <section className="bg-slate-800 mt-24 p-6">
-      <h2 className="text-4xl font-bold text-slate-200 -mb-3">
-        Our Advertised Products
-      </h2>
-      <div className="divider"></div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-12">
-        {advertisedProducts.map((product) => (
-          <Advertised key={product._id} product={product}></Advertised>
-        ))}
-      </div>
-    </section>
+    <>
+      {advertisedProducts.length && (
+        <section className="bg-slate-800 mt-24 p-6">
+          <h2 className="text-4xl font-bold text-slate-200 -mb-3">
+            Our Advertised Products
+          </h2>
+          <div className="divider"></div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-12">
+            {advertisedProducts.map((product) => (
+              <Advertised key={product._id} product={product}></Advertised>
+            ))}
+          </div>
+        </section>
+      )}
+    </>
   );
 };
 
