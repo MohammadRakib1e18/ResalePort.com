@@ -12,6 +12,9 @@ import AddProduct from "../Pages/Products/AddProduct";
 import MyProducts from "../Pages/Products/MyProducts";
 import Sellers from "../Pages/Dashboard/Admin/Sellers";
 import Buyers from "../Pages/Dashboard/Admin/Buyers";
+import PrivateRoute from "./PrivateRoute";
+import MyBuyers from "../Pages/Dashboard/MyBuyers";
+import MyOrders from "../Pages/Dashboard/MyOrders";
 
 
 const { createBrowserRouter } = require("react-router-dom");
@@ -31,8 +34,13 @@ export const routes = createBrowserRouter([
       },
       {
         path: "/category/:id",
-        element: <Products></Products>,
-        loader: ({ params }) => fetch(`http://localhost:5000/category/${params.id}`),
+        element: (
+          <PrivateRoute>
+            <Products></Products>
+          </PrivateRoute>
+        ),
+        loader: ({ params }) =>
+          fetch(`http://localhost:5000/category/${params.id}`),
       },
       {
         path: "/blogs",
@@ -49,30 +57,42 @@ export const routes = createBrowserRouter([
     ],
   },
   {
-    path:'/dashboard',
-    element:<DashboardLayout></DashboardLayout>,
-    children:[
+    path: "/dashboard",
+    element: (
+      <PrivateRoute>
+        <DashboardLayout></DashboardLayout>
+      </PrivateRoute>
+    ),
+    children: [
       {
-        path:'/dashboard',
-        element:<Dashboard></Dashboard>
+        path: "/dashboard",
+        element: <Dashboard></Dashboard>,
       },
       {
-        path:'/dashboard/addProduct',
-        element:<AddProduct></AddProduct>
+        path: "/dashboard/addProduct",
+        element: <AddProduct></AddProduct>,
       },
       {
-        path:'/dashboard/myProducts',
-        element:<MyProducts></MyProducts>
+        path: "/dashboard/myProducts",
+        element: <MyProducts></MyProducts>,
       },
       {
-        path:'/dashboard/sellers',
-        element:<Sellers></Sellers>
+        path: "/dashboard/sellers",
+        element: <Sellers></Sellers>,
       },
       {
-        path:'/dashboard/buyers',
-        element:<Buyers></Buyers>
-      }
-    ]
+        path: "/dashboard/buyers",
+        element: <Buyers></Buyers>,
+      },
+      {
+        path: "/dashboard/myBuyers",
+        element: <MyBuyers></MyBuyers>,
+      },
+      {
+        path: "/dashboard/myOrders",
+        element: <MyOrders></MyOrders>,
+      },
+    ],
   },
   {
     path: "*",

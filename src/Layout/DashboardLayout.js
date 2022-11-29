@@ -45,7 +45,7 @@ const DashboardLayout = () => {
     menu = (
       <>
         <li className="bg-slate-700 rounded-md ">
-          <Link to="/">My orders</Link>
+          <Link to="/dashboard/myOrders">My orders</Link>
         </li>
       </>
     );

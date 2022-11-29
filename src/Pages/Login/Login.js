@@ -29,13 +29,7 @@ const Login = () => {
 
     signIn(email, password)
       .then((result) => {
-        const user = result.user;
-        console.log(user.email);
-
-        const currentUser = {
-          email: user.email,
-        };
-        console.log("current user: ", currentUser);
+        navigate(from, { replace: true });
       })
       .catch((error) => {
         toast.error(`login error: ${error.message}`);
@@ -64,7 +58,7 @@ const Login = () => {
             console.log(data);
           });
         toast.success("Login Successful!");
-        navigate("/");
+        navigate(from, { replace: true });
       })
       .catch((error) => {
         toast.error(`${error.message}`);

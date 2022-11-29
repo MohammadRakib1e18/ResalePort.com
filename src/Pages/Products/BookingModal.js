@@ -12,9 +12,27 @@ const BookingModal = ({ show, setShow, productInfo }) => {
 
   const handleModal = (event) => {
     event.preventDefault();
-    console.log("Hello dear modal");
-    setShow(false);
-    toast.success("Order Placed Successfully!");
+    const date = new Date();
+    const orderedProduct = {
+      image_url: productInfo.image_url,
+      title: productInfo.title,
+      resale_price: productInfo.resale_price,
+      email: user?.email,
+      ordered_date: date.toDateString()
+    };
+    fetch("http://localhost:5000/order", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(orderedProduct),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setShow(false);
+        console.log(data);
+        toast.success("Order Placed Successfully!");
+      });
   };
 
   if (productInfo && show) {
@@ -79,10 +97,8 @@ const BookingModal = ({ show, setShow, productInfo }) => {
                 />
               </div>
               <div className="w-full">
-                <button
-                  className="w-full mt-5 btn bg-gradient-to-r from-cyan-500 to-blue-500 rounded-3xl border-none text-slate-100"
-                >
-                  Complete Order
+                <button className="w-full mt-5 btn bg-gradient-to-r from-cyan-500 to-blue-500 rounded-3xl border-none text-slate-100">
+                  Book Now
                 </button>
               </div>
             </form>
