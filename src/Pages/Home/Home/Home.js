@@ -1,6 +1,6 @@
-import { Dropdown } from 'flowbite-react';
 import React from 'react';
 import Banner from '../Banner/Banner';
+import AdvertisedHub from '../Categories/Advertised/AdvertisedHub';
 import Categories from '../Categories/Categories';
 import Testimonials from '../Testimonials/Testimonials';
 
@@ -9,6 +9,7 @@ const Home = () => {
       <div>
         <Banner></Banner>
         <Categories></Categories>
+        <AdvertisedHub></AdvertisedHub>
         <Testimonials></Testimonials>
       </div>
     );

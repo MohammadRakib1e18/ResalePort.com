@@ -9,6 +9,7 @@ import Login from "../Pages/Login/Login";
 import Registration from "../Pages/Login/Registration";
 import Products from "../Pages/Products/Products";
 import AddProduct from "../Pages/Products/AddProduct";
+import MyProducts from "../Pages/Products/MyProducts";
 
 
 const { createBrowserRouter } = require("react-router-dom");
@@ -56,6 +57,10 @@ export const routes = createBrowserRouter([
       {
         path:'/dashboard/addProduct',
         element:<AddProduct></AddProduct>
+      },
+      {
+        path:'/dashboard/myProducts',
+        element:<MyProducts></MyProducts>
       }
     ]
   },

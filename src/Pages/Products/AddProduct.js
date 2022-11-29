@@ -112,7 +112,9 @@ const AddProduct = () => {
         <div className="space-y-1 text-sm">
           <label className="block   text-gray-400">Select the category</label>
           <select
-            {...register("category_name")}
+            {...register("category_name", {
+              required: "Select a category",
+            })}
             onChange={function (e) {
               setCategory(e.target.value);
             }}
@@ -139,7 +141,9 @@ const AddProduct = () => {
             Select the sub-category
           </label>
           <select
-            {...register("sub_category")}
+            {...register("sub_category", {
+              required: "Select a sub-category",
+            })}
             className="select w-full px-4 py-3    border-gray-700   bg-gray-900   text-gray-100 focus:border-violet-400 rounded-none"
           >
             <option disabled selected>
