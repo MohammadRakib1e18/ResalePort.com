@@ -1,8 +1,17 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Rating } from "flowbite-react";
 import { FaCheckCircle } from "react-icons/fa";
+import { AuthContext } from "../../contexts/AuthProvider";
+import CustomLoading from "../../Components/CustomLoading";
+import toast from "react-hot-toast";
 
 const Product = ({ product, setShow, setProductInfo }) => {
+
+  const {user, loading} = useContext(AuthContext);
+  if(loading){
+    return <CustomLoading></CustomLoading>
+  }
+
   const {
     category_name,
     sub_category,
@@ -16,9 +25,38 @@ const Product = ({ product, setShow, setProductInfo }) => {
     used_duration,
     posted_time,
     image_url,
+    email
   } = product;
   const fullStar = Math.ceil(parseInt(rating));
   const starArray = [1, 2, 3, 4, 5];
+
+  const handleWishList = () => {
+    const wishedProduct = {
+      productId:product._id,
+      image_url,
+      buyer_email:user.email,
+      seller_email: email,
+      title,
+      seller,
+      category_name,
+      sub_category,
+      resale_price
+    }
+    console.log("wishlist");
+    fetch(`http://localhost:5000/wishList`,{
+      method:'POST',
+      headers:{
+        'content-type':'application/json'
+      },
+      body: JSON.stringify(wishedProduct)
+    })
+    .then(res => res.json())
+    .then(data =>{
+      if(data){
+        toast.success('Wish List Added');
+      }
+    })
+  };
 
   return (
     <div>
@@ -107,6 +145,13 @@ const Product = ({ product, setShow, setProductInfo }) => {
             }}
           >
             Purchase Now
+          </label>
+
+          <label
+            className="btn bg-gradient-to-r from-blue-500 to-cyan-500 rounded-3xl border-none text-slate-100"
+            onClick={handleWishList}
+          >
+            Wish List
           </label>
           <div className="gap-y-5 mt-8 grid grid-cols-1 sm:grid-cols-3">
             <small className="bg-slate-600  max-w-fit py-2 px-4 rounded-2xl">

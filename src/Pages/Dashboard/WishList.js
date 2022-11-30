@@ -4,17 +4,17 @@ import toast from "react-hot-toast";
 import CustomLoading from "../../Components/CustomLoading";
 import { AuthContext } from "../../contexts/AuthProvider";
 
-const MyOrders = () => {
+const WishList = () => {
   const { user, loading } = useContext(AuthContext);
 
-  const url = `http://localhost:5000/order?email=${user?.email}`;
+  const url = `http://localhost:5000/wishList?email=${user?.email}`;
 
   const {
-    data: orders = [],
+    data: wishList = [],
     isLoading,
     refetch,
   } = useQuery({
-    queryKey: ["order", user?.email],
+    queryKey: ["wishList", user?.email],
     queryFn: async () => {
       const res = await fetch(url);
       const data = await res.json();
@@ -26,8 +26,10 @@ const MyOrders = () => {
     return <CustomLoading></CustomLoading>;
   }
 
+  console.log(wishList);
+
   const deleteOrder = (id) => {
-    fetch(`http://localhost:5000/order/${id}`, {
+    fetch(`http://localhost:5000/wishList/${id}`, {
       method: "DELETE",
       headers: {
         "content-type": "application/json",
@@ -35,42 +37,50 @@ const MyOrders = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        toast.success("Order Cancelled");
+        toast.success("WishList Cancelled");
         refetch();
       });
   };
 
   return (
     <div className="mt-3 mx-5">
-      <h2 className="text-4xl font-bold text-slate-200 -mb-3">My Orders</h2>
+      <h2 className="text-4xl font-bold text-slate-200 -mb-3">My Wish List</h2>
       <div className="divider"></div>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-12">
-        {orders.map((order) => (
+        {wishList.map((wish) => (
           <div className="card bg-slate-700 text-slate-200 shadow-xl">
             <figure className="h-64 w-full border-2 rounded-2xl border-slate-400 mx-auto">
               <img
-                src={order.image_url}
+                src={wish.image_url}
                 className=" h-full w-full object-cover"
                 alt="user"
               />
             </figure>
             <div className="card-body">
-              <h2 className="text-2xl font-bold">Name : {order.title}</h2>
-              <h5 className="">Email: {order.email}</h5>
-              <p>
-                <small>Ordered:{order.ordered_date}</small>
-              </p>
+              <h2 className="text-xl font-bold">{wish.title}</h2>
+              <p>Seller: {wish.seller}</p>
+              <div className="space-y-2 flex flex-col">
+                <p className=" bg-slate-600  py-2 px-4 rounded-2xl">
+                  Buyer: {wish.buyer_email}
+                </p>
+                <p className=" bg-slate-600   py-2 px-4 rounded-2xl">
+                  Seller: {wish.seller_email} days
+                </p>
+              </div>
+
+              <h2 className="my-5 font-bold text-2xl text-red-400">Price : {wish.resale_price}/=</h2>
+
               <div className="card-actions justify-between">
                 <button
                   onClick={() => {
-                    deleteOrder(order._id);
+                    deleteOrder(wish._id);
                   }}
                   className="py-1 w-28 rounded-3xl bg-red-500 hover:bg-red-600 text-slate-200 "
                 >
                   Cancel
                 </button>
                 <button className="py-1 w-28 rounded-3xl bg-blue-500 hover:bg-blue-600 text-slate-200">
-                  Pay Now
+                  Buy Now
                 </button>
               </div>
             </div>
@@ -81,4 +91,4 @@ const MyOrders = () => {
   );
 };
 
-export default MyOrders;
+export default WishList;

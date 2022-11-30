@@ -15,6 +15,8 @@ import Buyers from "../Pages/Dashboard/Admin/Buyers";
 import PrivateRoute from "./PrivateRoute";
 import MyBuyers from "../Pages/Dashboard/MyBuyers";
 import MyOrders from "../Pages/Dashboard/MyOrders";
+import WishList from "../Pages/Dashboard/WishList";
+import ReportedItems from "../Pages/Dashboard/Admin/ReportedItems";
 
 
 const { createBrowserRouter } = require("react-router-dom");
@@ -91,6 +93,14 @@ export const routes = createBrowserRouter([
       {
         path: "/dashboard/myOrders",
         element: <MyOrders></MyOrders>,
+      },
+      {
+        path: "/dashboard/wishList",
+        element: <WishList></WishList>,
+      },
+      {
+        path: "/dashboard/reportedItems",
+        element: <ReportedItems></ReportedItems>,
       },
     ],
   },
