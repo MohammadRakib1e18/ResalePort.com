@@ -2,12 +2,12 @@ import React, { useContext } from "react";
 import { useQuery } from "@tanstack/react-query";
 import CustomLoading from "../../../../Components/CustomButton";
 import Advertised from "./Advertised";
-import {AuthContext} from '../../../../contexts/AuthProvider'
+import { AuthContext } from "../../../../contexts/AuthProvider";
 
 const AdvertisedHub = () => {
   const { user, loading } = useContext(AuthContext);
 
-  const url = `http://localhost:5000/advertisedProducts`;
+  const url = `https://assignment12-server-ivory.vercel.app/advertisedProducts`;
 
   const { data: advertisedProducts = [], isLoading } = useQuery({
     queryKey: ["advertisedProducts", user?.email],

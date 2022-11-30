@@ -4,7 +4,7 @@ import CustomLoading from "../../../Components/CustomLoading";
 import toast from "react-hot-toast";
 
 const Sellers = () => {
-  const url = `http://localhost:5000/statusdUser?status=seller`;
+  const url = `https://assignment12-server-ivory.vercel.app/statusdUser?status=seller`;
 
   const { data: allSeller = [], isLoading, refetch } = useQuery({
     queryKey: ["statusdUser"],
@@ -20,7 +20,7 @@ const Sellers = () => {
   }
 
   const deleteSeller = (id) => {
-    fetch(`http://localhost:5000/user/${id}`, {
+    fetch(`https://assignment12-server-ivory.vercel.app/user/${id}`, {
       method: "DELETE",
       headers: {
         "content-type": "application/json",

@@ -18,7 +18,6 @@ import MyOrders from "../Pages/Dashboard/MyOrders";
 import WishList from "../Pages/Dashboard/WishList";
 import ReportedItems from "../Pages/Dashboard/Admin/ReportedItems";
 
-
 const { createBrowserRouter } = require("react-router-dom");
 
 export const routes = createBrowserRouter([
@@ -42,7 +41,9 @@ export const routes = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/category/${params.id}`),
+          fetch(
+            `https://assignment12-server-ivory.vercel.app/category/${params.id}`
+          ),
       },
       {
         path: "/blogs",

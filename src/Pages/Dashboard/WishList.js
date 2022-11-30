@@ -7,7 +7,7 @@ import { AuthContext } from "../../contexts/AuthProvider";
 const WishList = () => {
   const { user, loading } = useContext(AuthContext);
 
-  const url = `http://localhost:5000/wishList?email=${user?.email}`;
+  const url = `https://assignment12-server-ivory.vercel.app/wishList?email=${user?.email}`;
 
   const {
     data: wishList = [],
@@ -29,7 +29,7 @@ const WishList = () => {
   console.log(wishList);
 
   const deleteOrder = (id) => {
-    fetch(`http://localhost:5000/wishList/${id}`, {
+    fetch(`https://assignment12-server-ivory.vercel.app/wishList/${id}`, {
       method: "DELETE",
       headers: {
         "content-type": "application/json",
@@ -68,7 +68,9 @@ const WishList = () => {
                 </p>
               </div>
 
-              <h2 className="my-5 font-bold text-2xl text-red-400">Price : {wish.resale_price}/=</h2>
+              <h2 className="my-5 font-bold text-2xl text-red-400">
+                Price : {wish.resale_price}/=
+              </h2>
 
               <div className="card-actions justify-between">
                 <button

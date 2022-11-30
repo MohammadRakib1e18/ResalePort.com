@@ -18,14 +18,14 @@ const MyProduct = ({ product, refetch }) => {
   } = product;
 
   const handleAdvertised = () => {
-    if (product.advertised){
+    if (product.advertised) {
       toast.error("Already Advertised");
       return;
     }
 
     const id = product._id;
     delete product._id;
-    fetch("http://localhost:5000/advertisedProducts", {
+    fetch("https://assignment12-server-ivory.vercel.app/advertisedProducts", {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -35,12 +35,15 @@ const MyProduct = ({ product, refetch }) => {
       .then((res) => res.json())
       .then((data) => {
         if (data.acknowledged) {
-          fetch(`http://localhost:5000/myProducts/${id}`, {
-            method: "PUT",
-            headers: {
-              "content-type": "application/json",
-            },
-          })
+          fetch(
+            `https://assignment12-server-ivory.vercel.app/myProducts/${id}`,
+            {
+              method: "PUT",
+              headers: {
+                "content-type": "application/json",
+              },
+            }
+          )
             .then((res) => res.json())
             .then((data) => {
               toast.success("advertised is successful");

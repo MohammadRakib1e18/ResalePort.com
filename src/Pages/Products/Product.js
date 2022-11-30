@@ -6,10 +6,9 @@ import CustomLoading from "../../Components/CustomLoading";
 import toast from "react-hot-toast";
 
 const Product = ({ product, setShow, setProductInfo }) => {
-
-  const {user, loading} = useContext(AuthContext);
-  if(loading){
-    return <CustomLoading></CustomLoading>
+  const { user, loading } = useContext(AuthContext);
+  if (loading) {
+    return <CustomLoading></CustomLoading>;
   }
 
   const {
@@ -25,37 +24,37 @@ const Product = ({ product, setShow, setProductInfo }) => {
     used_duration,
     posted_time,
     image_url,
-    email
+    email,
   } = product;
   const fullStar = Math.ceil(parseInt(rating));
   const starArray = [1, 2, 3, 4, 5];
 
   const handleWishList = () => {
     const wishedProduct = {
-      productId:product._id,
+      productId: product._id,
       image_url,
-      buyer_email:user.email,
+      buyer_email: user.email,
       seller_email: email,
       title,
       seller,
       category_name,
       sub_category,
-      resale_price
-    }
+      resale_price,
+    };
     console.log("wishlist");
-    fetch(`http://localhost:5000/wishList`,{
-      method:'POST',
-      headers:{
-        'content-type':'application/json'
+    fetch(`https://assignment12-server-ivory.vercel.app/wishList`, {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
       },
-      body: JSON.stringify(wishedProduct)
+      body: JSON.stringify(wishedProduct),
     })
-    .then(res => res.json())
-    .then(data =>{
-      if(data){
-        toast.success('Wish List Added');
-      }
-    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data) {
+          toast.success("Wish List Added");
+        }
+      });
   };
 
   return (

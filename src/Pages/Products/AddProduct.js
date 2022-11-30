@@ -17,23 +17,21 @@ const AddProduct = () => {
     formState: { errors },
   } = useForm();
 
-  const url = `http://localhost:5000/singleCategory?category=${category}`;
+  const url = `https://assignment12-server-ivory.vercel.app/singleCategory?category=${category}`;
 
-  useEffect(()=>{
-    if(loading){
-      <CustomLoading></CustomLoading>
-    }
-    else{
+  useEffect(() => {
+    if (loading) {
+      <CustomLoading></CustomLoading>;
+    } else {
       fetch(url)
         .then((res) => res.json())
         .then((data) => {
           setSubCategoryList(data.categoryList);
         });
     }
-  },[url, loading])
+  }, [url, loading]);
 
   const handleAddProduct = (data) => {
-    
     const {
       category_name,
       sub_category,
@@ -44,8 +42,6 @@ const AddProduct = () => {
       used_duration,
     } = data;
 
-
-
     const photo = data.image_url[0];
 
     const date = new Date();
@@ -54,14 +50,14 @@ const AddProduct = () => {
       sub_category,
       rating: "4.1",
       title,
-      isVerified:false,
+      isVerified: false,
       location,
       resale_price,
       original_price,
       seller: user?.displayName,
       used_duration,
       posted_time: date.toDateString(),
-      image_url:photo,
+      image_url: photo,
     };
     const formData = new FormData();
     formData.append("image", photo);
@@ -76,9 +72,8 @@ const AddProduct = () => {
       .then((data) => {
         console.log(data);
         if (data.success) {
-
-          newProduct.image_url=data.data.url
-          fetch("http://localhost:5000/product", {
+          newProduct.image_url = data.data.url;
+          fetch("https://assignment12-server-ivory.vercel.app/product", {
             method: "POST",
             headers: {
               "content-type": "application/json",
@@ -97,9 +92,6 @@ const AddProduct = () => {
             });
         }
       });
-
-    
-
   };
 
   return (

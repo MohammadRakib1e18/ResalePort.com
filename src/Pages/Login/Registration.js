@@ -33,68 +33,63 @@ const Registration = () => {
 
     const photo = data.photo[0];
 
-
     if (password !== confirm) {
       toast.error("password didn't match!");
       return;
     }
 
-    
-
     const formData = new FormData();
     formData.append("image", photo);
     const url = `https://api.imgbb.com/1/upload?key=${imageHostKey}`;
-    fetch(url,{
-      method: 'POST',
-      body: formData
+    fetch(url, {
+      method: "POST",
+      body: formData,
     })
-    .then(res => res.json())
-    .then(data => {
-      if(data.success){
-        const user = {
-          name,
-          email,
-          status,
-          userPhoto:data.data.url
-        };
-        createUser(email, password)
-          .then((result) => {
-            fetch("http://localhost:5000/users", {
-              method: "POST",
-              headers: {
-                "content-type": "application/json",
-              },
-              body: JSON.stringify(user),
-            })
-              .then((res) => res.json())
-              .then((data) => {
-                console.log(data);
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.success) {
+          const user = {
+            name,
+            email,
+            status,
+            userPhoto: data.data.url,
+          };
+          createUser(email, password)
+            .then((result) => {
+              fetch("https://assignment12-server-ivory.vercel.app/users", {
+                method: "POST",
+                headers: {
+                  "content-type": "application/json",
+                },
+                body: JSON.stringify(user),
+              })
+                .then((res) => res.json())
+                .then((data) => {
+                  console.log(data);
+                });
+              updateProfile(auth.currentUser, {
+                displayName: `${name}`,
+                photoURL: `${user.userPhoto}`,
+              })
+                .then(() => {})
+                .catch((error) => {
+                  toast.error(`${error.message}`);
+                });
+              Swal.fire({
+                icon: "success",
+                title: `Hello, ${name}`,
+                text: "Registration Successful!",
+                showConfirmButton: true,
+                timer: 1500,
               });
-            updateProfile(auth.currentUser, {
-              displayName: `${name}`,
-              photoURL: `${user.userPhoto}`,
+              navigate("/");
             })
-              .then(() => {})
-              .catch((error) => {
-                toast.error(`${error.message}`);
-              });
-            Swal.fire({
-              icon: "success",
-              title: `Hello, ${name}`,
-              text: "Registration Successful!",
-              showConfirmButton: true,
-              timer: 1500,
+
+            .catch((error) => {
+              toast.error(`${error.message}`);
             });
-            navigate("/");
-          })
-
-          .catch((error) => {
-            toast.error(`${error.message}`);
-          });
-      }
-    })
-
-    
+        }
+      });
   };
   const handleGoogleSignIn = () => {
     googleSignIn()
@@ -106,7 +101,7 @@ const Registration = () => {
           status: "buyer",
           userPhoto: photoURL,
         };
-        fetch("http://localhost:5000/users", {
+        fetch("https://assignment12-server-ivory.vercel.app/users", {
           method: "POST",
           headers: {
             "content-type": "application/json",

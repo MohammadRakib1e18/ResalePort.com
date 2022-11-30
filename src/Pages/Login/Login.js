@@ -39,14 +39,14 @@ const Login = () => {
   const handleGoogleSignIn = () => {
     googleSignIn()
       .then((result) => {
-        const {displayName, email, photoURL} = result.user;
+        const { displayName, email, photoURL } = result.user;
         const newUser = {
           name: displayName,
           email: email,
           status: "buyer",
           userPhoto: photoURL,
         };
-        fetch("http://localhost:5000/users", {
+        fetch("https://assignment12-server-ivory.vercel.app/users", {
           method: "POST",
           headers: {
             "content-type": "application/json",
