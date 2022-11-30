@@ -4,7 +4,11 @@ import CustomButton from "../../../Components/CustomButton";
 
 const Category = ({ category }) => {
   return (
-    <div>
+    <div
+      data-aos="flip-left"
+      data-aos-easing="ease-out-cubic"
+      data-aos-duration="2000"
+    >
       <div className="card text-center  bg-slate-700 shadow-xl image-full">
         <figure className="h-64">
           <img
@@ -19,7 +23,7 @@ const Category = ({ category }) => {
           </h2>
           <div className="dropdown dropdown-right">
             <CustomButton tabIndex={0}>Explore More</CustomButton>
-            
+
             <ul
               tabIndex={0}
               className="dropdown-content  text-left menu shadow "

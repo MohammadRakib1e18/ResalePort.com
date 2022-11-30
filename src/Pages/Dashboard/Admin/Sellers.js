@@ -4,7 +4,7 @@ import CustomLoading from "../../../Components/CustomLoading";
 import toast from "react-hot-toast";
 
 const Sellers = () => {
-  const url = `https://assignment12-server-ivory.vercel.app/statusdUser?status=seller`;
+  const url = `http://localhost:5000/statusdUser?status=seller`;
 
   const { data: allSeller = [], isLoading, refetch } = useQuery({
     queryKey: ["statusdUser"],
@@ -20,7 +20,7 @@ const Sellers = () => {
   }
 
   const deleteSeller = (id) => {
-    fetch(`https://assignment12-server-ivory.vercel.app/user/${id}`, {
+    fetch(`http://localhost:5000/user/${id}`, {
       method: "DELETE",
       headers: {
         "content-type": "application/json",
@@ -41,7 +41,12 @@ const Sellers = () => {
       <div className="divider"></div>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-12">
         {allSeller.map((seller) => (
-          <div className="card pt-5 bg-slate-700 text-slate-200 shadow-xl">
+          <div
+            data-aos="flip-left"
+            data-aos-easing="ease-out-cubic"
+            data-aos-duration="2000"
+            className="card pt-5 bg-slate-700 text-slate-200 shadow-xl"
+          >
             <figure className="h-64 w-64 mx-auto">
               <img
                 src={seller.userPhoto}
@@ -54,7 +59,9 @@ const Sellers = () => {
               <h5 className="">Email: {seller.email}</h5>
               <div className="card-actions justify-end">
                 <button
-                  onClick={()=>{deleteSeller(seller._id)}}
+                  onClick={() => {
+                    deleteSeller(seller._id);
+                  }}
                   className="py-2 px-5 rounded-none bg-red-500 hover:bg-red-700 text-slate-200 "
                 >
                   Delete

@@ -151,7 +151,11 @@ const Blogs = ({setShow, setBlogDetails}) => {
     <div>
       {blogInfo.map((blog) => (
         <>
-          <div className="mt-24 text-gray-100">
+          <div
+            data-aos="zoom-in-right"
+            data-aos-duration="1500"
+            className="mt-24 text-gray-100"
+          >
             <div className="container max-w-4xl px-10 py-6 mx-auto rounded-lg shadow-sm bg-slate-800">
               <div className="flex items-center justify-between">
                 <span className="text-sm text-gray-400">{blog.date}</span>
@@ -178,7 +182,7 @@ const Blogs = ({setShow, setBlogDetails}) => {
                 </button>
                 <div>
                   <p className="flex items-center cursor-pointer">
-                    <FaUserAlt/>
+                    <FaUserAlt />
                     <span className="ml-2 hover:underline text-gray-400">
                       {blog.author}
                     </span>

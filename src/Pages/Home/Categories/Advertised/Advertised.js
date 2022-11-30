@@ -2,7 +2,11 @@ import React from 'react';
 
 const Advertised = ({product}) => {
     return (
-      <div className="card bg-slate-600 shadow-xl">
+      <div
+        data-aos="fade-up"
+        data-aos-duration="2000"
+        className="card bg-slate-600 shadow-xl"
+      >
         <figure className="h-64">
           <img
             className="h-full w-full object-cover"

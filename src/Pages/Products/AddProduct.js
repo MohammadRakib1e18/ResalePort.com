@@ -17,7 +17,7 @@ const AddProduct = () => {
     formState: { errors },
   } = useForm();
 
-  const url = `https://assignment12-server-ivory.vercel.app/singleCategory?category=${category}`;
+  const url = `http://localhost:5000/singleCategory?category=${category}`;
 
   useEffect(() => {
     if (loading) {
@@ -73,7 +73,7 @@ const AddProduct = () => {
         console.log(data);
         if (data.success) {
           newProduct.image_url = data.data.url;
-          fetch("https://assignment12-server-ivory.vercel.app/product", {
+          fetch("http://localhost:5000/product", {
             method: "POST",
             headers: {
               "content-type": "application/json",

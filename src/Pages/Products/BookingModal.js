@@ -20,7 +20,7 @@ const BookingModal = ({ show, setShow, productInfo }) => {
       email: user?.email,
       ordered_date: date.toDateString(),
     };
-    fetch("https://assignment12-server-ivory.vercel.app/order", {
+    fetch("http://localhost:5000/order", {
       method: "POST",
       headers: {
         "content-type": "application/json",

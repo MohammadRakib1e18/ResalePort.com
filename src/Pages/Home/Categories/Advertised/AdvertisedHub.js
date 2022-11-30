@@ -7,7 +7,7 @@ import { AuthContext } from "../../../../contexts/AuthProvider";
 const AdvertisedHub = () => {
   const { user, loading } = useContext(AuthContext);
 
-  const url = `https://assignment12-server-ivory.vercel.app/advertisedProducts`;
+  const url = `http://localhost:5000/advertisedProducts`;
 
   const { data: advertisedProducts = [], isLoading } = useQuery({
     queryKey: ["advertisedProducts", user?.email],

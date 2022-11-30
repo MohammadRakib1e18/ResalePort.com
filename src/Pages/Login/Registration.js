@@ -56,7 +56,7 @@ const Registration = () => {
           };
           createUser(email, password)
             .then((result) => {
-              fetch("https://assignment12-server-ivory.vercel.app/users", {
+              fetch("http://localhost:5000/users", {
                 method: "POST",
                 headers: {
                   "content-type": "application/json",
@@ -101,7 +101,7 @@ const Registration = () => {
           status: "buyer",
           userPhoto: photoURL,
         };
-        fetch("https://assignment12-server-ivory.vercel.app/users", {
+        fetch("http://localhost:5000/users", {
           method: "POST",
           headers: {
             "content-type": "application/json",

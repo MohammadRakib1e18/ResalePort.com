@@ -8,7 +8,7 @@ import Navbar from "../Pages/Shared/Navbar/Navbar";
 const DashboardLayout = () => {
   const { user, loading } = useContext(AuthContext);
 
-  const url = `https://assignment12-server-ivory.vercel.app/user?email=${user?.email}`;
+  const url = `http://localhost:5000/user?email=${user?.email}`;
 
   const { data: loginUser = {}, isLoading } = useQuery({
     queryKey: ["user", user?.email],
@@ -23,10 +23,10 @@ const DashboardLayout = () => {
     return <CustomLoading></CustomLoading>;
   }
 
-  const status=loginUser.status;
-  let menu='';
+  const status = loginUser.status;
+  let menu = "";
 
-  if(status==='seller'){
+  if (status === "seller") {
     menu = (
       <>
         <li className="bg-slate-700 rounded-md ">
@@ -40,8 +40,7 @@ const DashboardLayout = () => {
         </li>
       </>
     );
-  }
-  else if(status==='buyer'){
+  } else if (status === "buyer") {
     menu = (
       <>
         <li className="bg-slate-700 rounded-md ">
@@ -52,8 +51,7 @@ const DashboardLayout = () => {
         </li>
       </>
     );
-  }
-  else{
+  } else {
     menu = (
       <>
         <li className="bg-slate-700 rounded-md ">
@@ -68,7 +66,6 @@ const DashboardLayout = () => {
       </>
     );
   }
-  
 
   return (
     <div>

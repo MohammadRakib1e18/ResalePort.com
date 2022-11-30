@@ -25,7 +25,7 @@ const MyProduct = ({ product, refetch }) => {
 
     const id = product._id;
     delete product._id;
-    fetch("https://assignment12-server-ivory.vercel.app/advertisedProducts", {
+    fetch("http://localhost:5000/advertisedProducts", {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -35,15 +35,12 @@ const MyProduct = ({ product, refetch }) => {
       .then((res) => res.json())
       .then((data) => {
         if (data.acknowledged) {
-          fetch(
-            `https://assignment12-server-ivory.vercel.app/myProducts/${id}`,
-            {
-              method: "PUT",
-              headers: {
-                "content-type": "application/json",
-              },
-            }
-          )
+          fetch(`http://localhost:5000/myProducts/${id}`, {
+            method: "PUT",
+            headers: {
+              "content-type": "application/json",
+            },
+          })
             .then((res) => res.json())
             .then((data) => {
               toast.success("advertised is successful");
@@ -55,7 +52,12 @@ const MyProduct = ({ product, refetch }) => {
   };
 
   return (
-    <div className="card bg-slate-700 shadow-xl">
+    <div
+      data-aos="flip-left"
+      data-aos-easing="ease-out-cubic"
+      data-aos-duration="2000"
+      className="card bg-slate-700 shadow-xl"
+    >
       <figure className="h-64">
         <img
           className="h-full w-full object-cover"

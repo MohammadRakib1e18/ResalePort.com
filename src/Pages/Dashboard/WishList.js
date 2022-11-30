@@ -7,7 +7,7 @@ import { AuthContext } from "../../contexts/AuthProvider";
 const WishList = () => {
   const { user, loading } = useContext(AuthContext);
 
-  const url = `https://assignment12-server-ivory.vercel.app/wishList?email=${user?.email}`;
+  const url = `http://localhost:5000/wishList?email=${user?.email}`;
 
   const {
     data: wishList = [],
@@ -29,7 +29,7 @@ const WishList = () => {
   console.log(wishList);
 
   const deleteOrder = (id) => {
-    fetch(`https://assignment12-server-ivory.vercel.app/wishList/${id}`, {
+    fetch(`http://localhost:5000/wishList/${id}`, {
       method: "DELETE",
       headers: {
         "content-type": "application/json",
@@ -48,7 +48,12 @@ const WishList = () => {
       <div className="divider"></div>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-12">
         {wishList.map((wish) => (
-          <div className="card bg-slate-700 text-slate-200 shadow-xl">
+          <div
+            data-aos="flip-left"
+            data-aos-easing="ease-out-cubic"
+            data-aos-duration="2000"
+            className="card bg-slate-700 text-slate-200 shadow-xl"
+          >
             <figure className="h-64 w-full border-2 rounded-2xl border-slate-400 mx-auto">
               <img
                 src={wish.image_url}

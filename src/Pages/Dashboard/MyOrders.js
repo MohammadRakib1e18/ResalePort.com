@@ -7,7 +7,7 @@ import { AuthContext } from "../../contexts/AuthProvider";
 const MyOrders = () => {
   const { user, loading } = useContext(AuthContext);
 
-  const url = `https://assignment12-server-ivory.vercel.app/order?email=${user?.email}`;
+  const url = `http://localhost:5000/order?email=${user?.email}`;
 
   const {
     data: orders = [],
@@ -27,7 +27,7 @@ const MyOrders = () => {
   }
 
   const deleteOrder = (id) => {
-    fetch(`https://assignment12-server-ivory.vercel.app/order/${id}`, {
+    fetch(`http://localhost:5000/order/${id}`, {
       method: "DELETE",
       headers: {
         "content-type": "application/json",
@@ -46,7 +46,12 @@ const MyOrders = () => {
       <div className="divider"></div>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-12">
         {orders.map((order) => (
-          <div className="card bg-slate-700 text-slate-200 shadow-xl">
+          <div
+            data-aos="flip-left"
+            data-aos-easing="ease-out-cubic"
+            data-aos-duration="2000"
+            className="card bg-slate-700 text-slate-200 shadow-xl"
+          >
             <figure className="h-64 w-full border-2 rounded-2xl border-slate-400 mx-auto">
               <img
                 src={order.image_url}

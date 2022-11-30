@@ -42,7 +42,7 @@ const Product = ({ product, setShow, setProductInfo }) => {
       resale_price,
     };
     console.log("wishlist");
-    fetch(`https://assignment12-server-ivory.vercel.app/wishList`, {
+    fetch(`http://localhost:5000/wishList`, {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -58,7 +58,7 @@ const Product = ({ product, setShow, setProductInfo }) => {
   };
 
   return (
-    <div>
+    <div data-aos="fade-up" data-aos-duration="1000">
       <div className="card flex-col md:flex-row bg-slate-700 shadow-xl text-slate-200 border rounded-none p-2">
         <figure className="md:w-1/2 rounded-none max-h-[600px]">
           <img
