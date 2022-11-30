@@ -42,7 +42,7 @@ const Product = ({ product, setShow, setProductInfo }) => {
       resale_price,
     };
     console.log("wishlist");
-    fetch(`http://localhost:5000/wishList`, {
+    fetch(`https://assignment12-server-ivory.vercel.app/wishList`, {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -51,7 +51,9 @@ const Product = ({ product, setShow, setProductInfo }) => {
     })
       .then((res) => res.json())
       .then((data) => {
-        if (data) {
+        if (data.message === "alreadyAdded") {
+          toast.error("Already Added to the Wish List!");
+        } else {
           toast.success("Wish List Added");
         }
       });

@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import CustomLoading from "../../../../Components/CustomButton";
 import Advertised from "./Advertised";
@@ -6,11 +6,12 @@ import { AuthContext } from "../../../../contexts/AuthProvider";
 
 const AdvertisedHub = () => {
   const { user, loading } = useContext(AuthContext);
+  const [range, setRange] = useState(3);
 
-  const url = `http://localhost:5000/advertisedProducts`;
+  const url = `https://assignment12-server-ivory.vercel.app/advertisedProducts?range=${range}`;
 
   const { data: advertisedProducts = [], isLoading } = useQuery({
-    queryKey: ["advertisedProducts", user?.email],
+    queryKey: ["advertisedProducts", user?.email, range],
     queryFn: async () => {
       const res = await fetch(url);
       const data = await res.json();
@@ -33,6 +34,27 @@ const AdvertisedHub = () => {
             {advertisedProducts.map((product) => (
               <Advertised key={product._id} product={product}></Advertised>
             ))}
+          </div>
+          <div className=" mt-16 w-1/2 mx-auto text-center">
+            {range > advertisedProducts.length ? (
+              <button
+                onClick={() => {
+                  setRange(3);
+                }}
+                className="py-3 px-8  font-bold bg-red-500 hover:bg-red-600 rounded-md text-slate-200"
+              >
+                View Less
+              </button>
+            ) : (
+              <button
+                onClick={() => {
+                  setRange(range + 3);
+                }}
+                className="py-3 px-8  font-bold bg-yellow-500 hover:bg-yellow-600 rounded-md text-slate-200"
+              >
+                View More
+              </button>
+            )}
           </div>
         </section>
       )}

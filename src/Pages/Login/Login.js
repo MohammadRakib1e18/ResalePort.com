@@ -46,7 +46,7 @@ const Login = () => {
           status: "buyer",
           userPhoto: photoURL,
         };
-        fetch("http://localhost:5000/users", {
+        fetch("https://assignment12-server-ivory.vercel.app/users", {
           method: "POST",
           headers: {
             "content-type": "application/json",

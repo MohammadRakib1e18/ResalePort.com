@@ -18,9 +18,10 @@ const BookingModal = ({ show, setShow, productInfo }) => {
       title: productInfo.title,
       resale_price: productInfo.resale_price,
       email: user?.email,
+      seller_email: productInfo.email,
       ordered_date: date.toDateString(),
     };
-    fetch("http://localhost:5000/order", {
+    fetch("https://assignment12-server-ivory.vercel.app/order", {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -29,6 +30,10 @@ const BookingModal = ({ show, setShow, productInfo }) => {
     })
       .then((res) => res.json())
       .then((data) => {
+        if (data.message === "alreadyAdded") {
+          toast.error("Already Ordered! Try another");
+          return;
+        }
         setShow(false);
         console.log(data);
         toast.success("Order Placed Successfully!");
