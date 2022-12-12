@@ -14,9 +14,6 @@ Some Key Features:
 * Animation effect with AOS
 * Desktop and mobile responsive site.
 
-* adminEmail: rakib99@gmail.com
-* adminPassword: 121212
-
 # Used Technologies:
 * mongoDB 
 * React JS
